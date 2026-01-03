@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>E. Beyers · Environmental Software Tools</title>
+
+  <!-- Modern, slightly feminine sans-serif -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root{
+      /* Earth tones */
+      --bg: #1F2A24;          /* deep forest */
+      --panel: #24332B;       /* moss */
+      --panel2:#1A241F;       /* deeper moss */
+      --sand:#E6D8C3;         /* warm sand */
+      --clay:#D6C6AE;         /* soft clay */
+      --linen:#F5F1EB;        /* off-white */
+      --muted: rgba(245,241,235,.72);
+      --muted2: rgba(245,241,235,.55);
+      --stroke: rgba(214,198,174,.40);
+      --stroke2: rgba(214,198,174,.22);
+      --shadow: 0 10px 30px rgba(0,0,0,.22);
+      --r-xl: 22px;
+      --r-2xl: 28px;
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family:"DM Sans", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 500px at 50% -10%, rgba(230,216,195,.13), transparent 60%),
+                  radial-gradient(700px 420px at 90% 40%, rgba(230,216,195,.08), transparent 55%),
+                  var(--bg);
+      color:var(--linen);
+      letter-spacing:.01em;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+    .wrap{ max-width:1120px; margin:0 auto; padding:0 20px; }
+
+    /* Utilities */
+    .pill{ display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; border:1px solid var(--stroke2); background:rgba(36,51,43,.55); color:var(--muted); font-size:12px; }
+    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:10px; padding:12px 16px; border-radius:18px; border:1px solid var(--stroke2); background:rgba(36,51,43,.55); color:var(--linen); font-weight:500; }
+    .btn:hover{ background:rgba(36,51,43,.75); }
+    .btn-primary{ background:var(--sand); color: #1A241F; border-color: rgba(230,216,195,.55); }
+    .btn-primary:hover{ filter:brightness(.98); }
+
+    .card{ border-radius:var(--r-2xl); border:1px solid var(--stroke2); background:rgba(36,51,43,.55); box-shadow: var(--shadow); }
+    .card-soft{ border-radius:var(--r-2xl); border:1px solid var(--stroke2); background:rgba(36,51,43,.38); }
+
+    /* Top nav */
+    .nav{
+      position:sticky; top:0; z-index:50;
+      border-bottom:1px solid var(--stroke2);
+      background: rgba(31,42,36,.70);
+      backdrop-filter: blur(10px);
+    }
+    .nav-inner{ display:flex; align-items:center; justify-content:space-between; padding:14px 0; }
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .logo{
+      width:38px; height:38px; display:grid; place-items:center;
+      border-radius:14px; border:1px solid var(--stroke2);
+      background: rgba(36,51,43,.55);
+      font-size:18px;
+    }
+    .brand-name{ font-size:14px; font-weight:500; letter-spacing:.04em; }
+    .brand-sub{ font-size:12px; color:var(--muted2); margin-top:2px; }
+
+    .nav-links{ display:none; gap:6px; align-items:center; }
+    .nav-links a, .nav-links button{
+      font:inherit; cursor:pointer;
+      border:0; background:transparent;
+      padding:9px 12px; border-radius:999px;
+      color:var(--muted);
+    }
+    .nav-links a:hover, .nav-links button:hover{ background:rgba(36,51,43,.55); color:var(--linen); }
+
+    .nav-cta{ display:inline-flex; }
+
+    @media (min-width: 720px){
+      .nav-links{ display:flex; }
+      .nav-cta.mobile{ display:none; }
+    }
+    @media (max-width: 719px){
+      .nav-cta.desktop{ display:none; }
+    }
+
+    /* Hero */
+    .hero{ padding: 56px 0 26px; }
+    .hero-grid{ display:grid; gap:18px; }
+    @media (min-width: 980px){
+      .hero-grid{ grid-template-columns: 1.25fr .75fr; gap:28px; align-items:start; }
+    }
+
+    h1{ margin:14px 0 0; font-size:42px; line-height:1.05; font-weight:500; letter-spacing:.02em; }
+    @media (min-width:720px){ h1{ font-size:54px; } }
+
+    .lead{ margin:14px 0 0; max-width: 56ch; color: var(--muted); line-height:1.6; font-size:16px; }
+
+    .badge-grid{ margin-top:22px; display:grid; grid-template-columns: 1fr 1fr; gap:10px; }
+    @media (min-width:720px){ .badge-grid{ grid-template-columns: repeat(4, 1fr); } }
+
+    .badge{ display:flex; align-items:center; gap:10px; padding:12px 12px; border-radius:18px; border:1px solid var(--stroke2); background:rgba(36,51,43,.42); color:var(--muted); font-size:12px; }
+
+    /* Sections */
+    section{ padding: 42px 0; }
+    .section-head{ max-width: 720px; }
+    .eyebrow{ display:inline-flex; align-items:center; gap:8px; padding:7px 11px; border-radius:999px; border:1px solid var(--stroke2); background:rgba(36,51,43,.42); color:var(--muted); font-size:12px; }
+    .h2{ margin:14px 0 0; font-size:28px; font-weight:500; letter-spacing:.03em; }
+    .sub{ margin:10px 0 0; color:var(--muted); line-height:1.65; }
+
+    /* Work filter */
+    .filters{ margin-top:18px; display:flex; flex-direction:column; gap:12px; }
+    @media (min-width:720px){ .filters{ flex-direction:row; align-items:center; justify-content:space-between; } }
+
+    .search{ position:relative; width:100%; max-width:420px; }
+    .search input{
+      width:100%;
+      padding:11px 12px 11px 40px;
+      border-radius:18px;
+      border:1px solid var(--stroke2);
+      background:rgba(36,51,43,.45);
+      color:var(--linen);
+      outline:none;
+    }
+    .search input::placeholder{ color:rgba(245,241,235,.45); }
+    .search svg{ position:absolute; left:14px; top:50%; transform:translateY(-50%); opacity:.7; }
+
+    .cat-row{ display:flex; flex-wrap:wrap; gap:8px; }
+    .chip{
+      border-radius:999px;
+      padding:8px 12px;
+      border:1px solid var(--stroke2);
+      background:rgba(36,51,43,.42);
+      color:var(--muted);
+      font:inherit;
+      font-size:14px;
+      cursor:pointer;
+    }
+    .chip:hover{ background:rgba(36,51,43,.60); color:var(--linen); }
+    .chip.active{ background:var(--sand); border-color: rgba(230,216,195,.60); color:#1A241F; }
+
+    /* Project cards */
+    .grid{ margin-top:16px; display:grid; gap:14px; }
+    @media (min-width:980px){ .grid{ grid-template-columns: 1fr 1fr; } }
+
+    .p-card{ padding:18px; }
+    .p-top{ display:flex; justify-content:space-between; gap:14px; align-items:flex-start; }
+    .p-left{ display:flex; gap:12px; }
+    .p-icon{ width:44px; height:44px; border-radius:18px; border:1px solid var(--stroke2); background:rgba(36,51,43,.55); display:grid; place-items:center; }
+    .p-title{ font-size:18px; font-weight:500; letter-spacing:.03em; }
+    .p-cat{ font-size:12px; color:var(--muted2); margin-top:2px; }
+    .p-tagline{ margin-top:10px; color:var(--muted); }
+
+    .impact{ display:none; padding:10px 12px; border-radius:18px; border:1px solid var(--stroke2); background:rgba(26,36,31,.55); color:var(--muted); font-size:12px; max-width: 260px; }
+    @media (min-width:720px){ .impact{ display:block; } }
+
+    .hl{ margin-top:14px; padding:14px; border-radius:22px; border:1px solid var(--stroke2); background:rgba(26,36,31,.55); }
+    .hl h4{ margin:0; font-size:12px; font-weight:500; letter-spacing:.06em; text-transform:uppercase; color:var(--muted2); }
+    .hl ul{ margin:10px 0 0; padding:0; list-style:none; display:grid; gap:8px; }
+    .hl li{ display:flex; gap:10px; color:var(--muted); line-height:1.45; }
+    .dot{ width:7px; height:7px; border-radius:999px; background:rgba(230,216,195,.55); margin-top:7px; flex:0 0 auto; }
+
+    .stack{ margin-top:14px; display:flex; flex-wrap:wrap; gap:8px; }
+
+    .links{ margin-top:16px; display:flex; flex-wrap:wrap; gap:10px; }
+
+    /* Contact */
+    .contact{ padding:22px; }
+    @media (min-width:980px){ .contact-grid{ display:grid; grid-template-columns: 1.2fr .8fr; gap:18px; } }
+
+    label{ display:block; font-size:12px; color:var(--muted2); margin-top:14px; }
+    input, textarea{
+      width:100%;
+      margin-top:8px;
+      padding:11px 12px;
+      border-radius:18px;
+      border:1px solid var(--stroke2);
+      background:rgba(36,51,43,.45);
+      color:var(--linen);
+      outline:none;
+      font:inherit;
+    }
+    textarea{ resize:none; }
+
+    /* Footer */
+    footer{ border-top:1px solid var(--stroke2); padding: 20px 0; color: var(--muted2); }
+    .foot{ display:flex; flex-direction:column; gap:10px; }
+    @media (min-width:720px){ .foot{ flex-direction:row; align-items:center; justify-content:space-between; } }
+    .foot a:hover{ color: var(--linen); }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      html{ scroll-behavior:auto; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="nav">
+    <div class="wrap nav-inner">
+      <a class="brand" href="#top" aria-label="E. Beyers home">
+        <div class="logo" aria-hidden="true">🍃</div>
+        <div>
+          <div class="brand-name">E. Beyers</div>
+          <div class="brand-sub">Environmental software tools</div>
+        </div>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <button data-jump="work">Work</button>
+        <button data-jump="services">Services</button>
+        <button data-jump="writing">Writing</button>
+        <button data-jump="contact">Contact</button>
+        <a class="btn btn-primary" href="#contact">Let’s build →</a>
+      </nav>
+
+      <div class="nav-cta mobile">
+        <a class="btn btn-primary" href="#contact">Contact →</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <div class="wrap hero">
+      <div class="hero-grid">
+        <div>
+          <div style="display:flex; flex-wrap:wrap; gap:8px;">
+            <span class="pill">Carbon accounting</span>
+            <span class="pill">Climate data</span>
+            <span class="pill">Renewables optimization</span>
+            <span class="pill">APIs & dashboards</span>
+          </div>
+
+          <h1>I build software tools that turn environmental data into decisions.</h1>
+          <p class="lead">
+            Portfolio of production-ready tools for emissions accounting, climate risk, and renewable energy operations.
+            Designed for clarity, auditability, and measurable impact.
+          </p>
+
+          <div style="margin-top:18px; display:flex; flex-direction:column; gap:10px; max-width:520px;">
+            <a class="btn btn-primary" href="#work">View selected work →</a>
+            <a class="btn" href="#" aria-label="Watch demo">▶ Watch a 90s demo</a>
+          </div>
+
+          <div class="badge-grid" aria-label="Highlights">
+            <div class="badge">✓ Production-grade tooling</div>
+            <div class="badge">✓ Security & data governance</div>
+            <div class="badge">✓ Decision-ready analytics</div>
+            <div class="badge">✓ Climate-first outcomes</div>
+          </div>
+        </div>
+
+        <aside class="card" style="padding:18px;">
+          <div style="display:flex; align-items:flex-start; justify-content:space-between; gap:14px;">
+            <div>
+              <div style="font-weight:500; letter-spacing:.04em;">Currently building</div>
+              <div style="margin-top:6px; color:var(--muted2); font-size:13px; line-height:1.5;">
+                A modular toolkit for Scope 3 data ingestion and quality checks.
+              </div>
+            </div>
+            <div class="p-icon" aria-hidden="true">🌍</div>
+          </div>
+
+          <div style="margin-top:14px; display:grid; gap:10px;">
+            <div class="card-soft" style="padding:12px 14px; display:flex; align-items:center; justify-content:space-between;">
+              <div style="color:var(--muted);">Schema registry</div>
+              <div style="color:var(--muted2); font-size:12px;">In progress</div>
+            </div>
+            <div class="card-soft" style="padding:12px 14px; display:flex; align-items:center; justify-content:space-between;">
+              <div style="color:var(--muted);">Supplier portal</div>
+              <div style="color:var(--muted2); font-size:12px;">In progress</div>
+            </div>
+            <div class="card-soft" style="padding:12px 14px; display:flex; align-items:center; justify-content:space-between;">
+              <div style="color:var(--muted);">Uncertainty tracking</div>
+              <div style="color:var(--muted2); font-size:12px;">In progress</div>
+            </div>
+          </div>
+
+          <div class="card-soft" style="margin-top:12px; padding:14px;">
+            <div style="font-size:12px; color:var(--muted2); letter-spacing:.08em; text-transform:uppercase;">Core strengths</div>
+            <div style="margin-top:10px; display:flex; flex-wrap:wrap; gap:8px;">
+              <span class="pill">Data models</span>
+              <span class="pill">ETL pipelines</span>
+              <span class="pill">Optimization</span>
+              <span class="pill">Audit trails</span>
+              <span class="pill">Dashboards</span>
+              <span class="pill">GIS</span>
+            </div>
+          </div>
+
+          <div style="margin-top:12px; display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
+            <a class="btn" href="#">GitHub</a>
+            <a class="btn" href="#">LinkedIn</a>
+          </div>
+        </aside>
+      </div>
+    </div>
+
+    <!-- WORK -->
+    <section id="work">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">✦ Selected work</div>
+          <div class="h2">Projects that balance scientific rigor with usable design</div>
+          <p class="sub">Each project is built around a decision: reduce carbon, manage risk, or operate assets more efficiently — with data you can trust.</p>
+        </div>
+
+        <div class="filters" role="region" aria-label="Project filters">
+          <div class="search">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M21 21L16.65 16.65M10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5C18 14.6421 14.6421 18 10.5 18Z" stroke="rgba(245,241,235,.65)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <input id="q" type="text" placeholder="Search projects…" autocomplete="off" />
+          </div>
+          <div class="cat-row" id="cats"></div>
+        </div>
+
+        <div class="grid" id="projects" aria-live="polite"></div>
+
+        <div class="card" style="margin-top:16px; padding:18px; background:rgba(36,51,43,.45);">
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            <div>
+              <div style="font-weight:500; letter-spacing:.03em;">Want deeper technical detail?</div>
+              <div style="margin-top:6px; color:var(--muted);">Ask for architecture diagrams, data models, or an end-to-end case study template.</div>
+            </div>
+            <div>
+              <a class="btn btn-primary" href="#contact">Start a project →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">✦ What I do</div>
+          <div class="h2">Tools that help teams measure, plan, and prove impact</div>
+          <p class="sub">From carbon data models to optimization engines, I build software that stands up to scrutiny and scales with your needs.</p>
+        </div>
+
+        <div class="grid" style="margin-top:16px; grid-template-columns: 1fr;">
+          <div class="card" style="padding:18px; background:rgba(36,51,43,.45);">
+            <div style="font-weight:500; letter-spacing:.03em;">Data pipelines & quality</div>
+            <div style="margin-top:8px; color:var(--muted); line-height:1.6;">ETL/ELT, validation rules, lineage, and schema versioning for environmental datasets.</div>
+          </div>
+          <div class="card" style="padding:18px; background:rgba(36,51,43,.45);">
+            <div style="font-weight:500; letter-spacing:.03em;">Dashboards & decision tools</div>
+            <div style="margin-top:8px; color:var(--muted); line-height:1.6;">Explainable metrics and interactive reporting for ops, finance, and sustainability teams.</div>
+          </div>
+          <div class="card" style="padding:18px; background:rgba(36,51,43,.45);">
+            <div style="font-weight:500; letter-spacing:.03em;">Optimization & scenario modelling</div>
+            <div style="margin-top:8px; color:var(--muted); line-height:1.6;">Planning and dispatch optimization for renewables and storage with scenario analysis.</div>
+          </div>
+          <div class="card" style="padding:18px; background:rgba(36,51,43,.45);">
+            <div style="font-weight:500; letter-spacing:.03em;">Auditability & governance</div>
+            <div style="margin-top:8px; color:var(--muted); line-height:1.6;">Role-based access, audit trails, uncertainty tracking, and compliance-friendly exports.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WRITING -->
+    <section id="writing">
+      <div class="wrap">
+        <div class="section-head">
+          <div class="eyebrow">✦ Writing</div>
+          <div class="h2">Notes on climate tech, data, and delivery</div>
+          <p class="sub">Short, practical posts on building trustworthy environmental software — with patterns you can reuse.</p>
+        </div>
+
+        <div class="grid" style="margin-top:16px;">
+          <a class="card" href="#" style="padding:18px; background:rgba(36,51,43,.45);">
+            <div style="display:flex; justify-content:space-between; gap:10px; align-items:center;">
+              <div style="font-size:12px; color:var(--muted2);">2025-11-18 · 6 min</div>
+              <span class="pill">Carbon Accounting</span>
+            </div>
+            <div style="margin-top:10px; font-weight:500; letter-spacing:.03em;">Designing audit trails for emissions data</div>
+            <div style="margin-top:10px; color:var(--muted);">Read →</div>
+          </a>
+
+          <a class="card" href="#" style="padding:18px; background:rgba(36,51,43,.45);">
+            <div style="display:flex; justify-content:space-between; gap:10px; align-items:center;">
+              <div style="font-size:12px; color:var(--muted2);">2025-09-02 · 8 min</div>
+              <span class="pill">Methodology</span>
+            </div>
+            <div style="margin-top:10px; font-weight:500; letter-spacing:.03em;">A practical guide to uncertainty in Scope 3</div>
+            <div style="margin-top:10px; color:var(--muted);">Read →</div>
+          </a>
+
+          <a class="card" href="#" style="padding:18px; background:rgba(36,51,43,.45);">
+            <div style="display:flex; justify-content:space-between; gap:10px; align-items:center;">
+              <div style="font-size:12px; color:var(--muted2);">2025-06-10 · 7 min</div>
+              <span class="pill">Climate Data</span>
+            </div>
+            <div style="margin-top:10px; font-weight:500; letter-spacing:.03em;">From NetCDF to insight: shipping climate data to the web</div>
+            <div style="margin-top:10px; color:var(--muted);">Read →</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <div class="wrap">
+        <div class="card contact">
+          <div class="contact-grid">
+            <div>
+              <div class="eyebrow">✦ Contact</div>
+              <div class="h2">Have a climate tool to build?</div>
+              <p class="sub">I can help you ship something that’s accurate, explainable, and ready for real users. Share a short brief and I’ll reply with next steps.</p>
+
+              <div style="margin-top:14px; display:grid; gap:10px; grid-template-columns: 1fr;">
+                <div class="card-soft" style="padding:14px;">
+                  <div style="font-size:12px; color:var(--muted2); letter-spacing:.08em; text-transform:uppercase;">Email</div>
+                  <div style="margin-top:8px; color:var(--muted);">name@domain.com</div>
+                </div>
+                <div class="card-soft" style="padding:14px;">
+                  <div style="font-size:12px; color:var(--muted2); letter-spacing:.08em; text-transform:uppercase;">Location</div>
+                  <div style="margin-top:8px; color:var(--muted);">Remote / Hybrid</div>
+                </div>
+              </div>
+
+              <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:10px;">
+                <a class="btn btn-primary" href="#">Download CV</a>
+                <a class="btn" href="#">Message on LinkedIn</a>
+              </div>
+            </div>
+
+            <form class="card-soft" style="padding:18px; margin-top:14px;" onsubmit="return false;">
+              <div style="font-weight:500; letter-spacing:.03em;">Quick brief</div>
+              <div style="margin-top:6px; color:var(--muted2); font-size:12px;">(Demo form — wire it to your backend or Formspree.)</div>
+
+              <label for="name">Name</label>
+              <input id="name" placeholder="Jane Doe" />
+
+              <label for="email">Email</label>
+              <input id="email" type="email" placeholder="jane@company.com" />
+
+              <label for="brief">What are you building?</label>
+              <textarea id="brief" rows="4" placeholder="Emissions data ingestion + validation for 50 suppliers…"></textarea>
+
+              <button class="btn btn-primary" style="width:100%; margin-top:14px;" type="submit">Send brief →</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div>© <span id="year"></span> E. Beyers · Environmental software tools</div>
+      <div style="display:flex; gap:14px; flex-wrap:wrap;">
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Email</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Smooth jump for nav buttons
+    document.querySelectorAll('[data-jump]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-jump');
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+
+    // Data (edit these with your real projects)
+    const projects = [
+      {
+        id: 'carbon-ledger',
+        title: 'Carbon Ledger',
+        tagline: 'Audit-ready emissions accounting for complex operations',
+        category: 'Carbon Accounting',
+        impact: 'Reduced reporting time by 65% and improved data traceability.',
+        stack: ['Python', 'FastAPI', 'PostgreSQL', 'Pydantic', 'Docker'],
+        highlights: [
+          'GHG Protocol-aligned activity data models',
+          'Uncertainty propagation + audit trail',
+          'Role-based access + exports to Excel/Power BI'
+        ],
+        links: { caseStudy:'#', demo:'#', repo:'#' },
+        icon: '🧾'
+      },
+      {
+        id: 'bess-scheduler',
+        title: 'BESS Dispatch Planner',
+        tagline: 'Constraint-aware scheduling for storage and renewables',
+        category: 'Optimization',
+        impact: 'Improved capture price by 8–12% in simulated markets.',
+        stack: ['TypeScript', 'Node', 'OR-Tools', 'TimescaleDB'],
+        highlights: [
+          'Multi-objective optimization (cost, carbon, cycling)',
+          'Scenario engine + sensitivity analysis',
+          'Interactive charts for ops and finance'
+        ],
+        links: { caseStudy:'#', demo:'#', repo:'#' },
+        icon: '⚡'
+      },
+      {
+        id: 'carbon-dashboard',
+        title: 'Carbon Emissions Dashboard',
+        tagline: 'Location-based physical energy usage insights for assets',
+        category: 'Climate Data',
+        impact: 'Enabled comparable screening across 25+ sites across Europe.',
+        stack: ['Web', 'Microsoft Excel', 'Power BI'],
+        highlights: [
+          'Interactive maps linking details of site visit findings',
+          'Facility condition assessment & sustainability tracking',
+          'Custom report generation* and data export options'
+        ],
+        links: { caseStudy:'#', demo:'#', repo:'#' },
+        icon: '🗺️'
+      },
+      {
+        id: 'esg-api',
+        title: 'ESG Data API',
+        tagline: 'A unified interface for utilities, suppliers, and reports',
+        category: 'Data Engineering',
+        impact: 'Cut supplier data onboarding from weeks to days.',
+        stack: ['Go', 'gRPC', 'Kafka', 'BigQuery'],
+        highlights: [
+          'Schema registry + versioning',
+          'Quality rules + anomaly alerts',
+          'Partner integrations + webhooks'
+        ],
+        links: { caseStudy:'#', demo:'#', repo:'#' },
+        icon: '🔌'
+      }
+    ];
+
+    // Build categories
+    const catsEl = document.getElementById('cats');
+    const categories = ['All', ...Array.from(new Set(projects.map(p => p.category)))];
+    let activeCat = 'All';
+
+    categories.forEach(cat => {
+      const b = document.createElement('button');
+      b.className = 'chip' + (cat === activeCat ? ' active' : '');
+      b.type = 'button';
+      b.textContent = cat;
+      b.addEventListener('click', () => {
+        activeCat = cat;
+        document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+        b.classList.add('active');
+        render();
+      });
+      catsEl.appendChild(b);
+    });
+
+    // Render
+    const qEl = document.getElementById('q');
+    const listEl = document.getElementById('projects');
+
+    function cardHTML(p){
+      const stack = p.stack.map(s => `<span class="pill">${escapeHtml(s)}</span>`).join('');
+      const hls = p.highlights.map(h => `
+        <li><span class="dot"></span><span>${escapeHtml(h)}</span></li>
+      `).join('');
+      return `
+        <article class="card p-card" data-id="${p.id}">
+          <div class="p-top">
+            <div>
+              <div class="p-left">
+                <div class="p-icon" aria-hidden="true">${p.icon}</div>
+                <div>
+                  <div class="p-title">${escapeHtml(p.title)}</div>
+                  <div class="p-cat">${escapeHtml(p.category)}</div>
+                </div>
+              </div>
+              <div class="p-tagline">${escapeHtml(p.tagline)}</div>
+            </div>
+            <div class="impact">${escapeHtml(p.impact)}</div>
+          </div>
+
+          <div class="hl">
+            <h4>Highlights</h4>
+            <ul>${hls}</ul>
+          </div>
+
+          <div class="stack">${stack}</div>
+
+          <div class="links">
+            <a class="btn btn-primary" href="${p.links.caseStudy}">Case study →</a>
+            <a class="btn" href="${p.links.demo}">Live demo</a>
+            <a class="btn" href="${p.links.repo}">Repo</a>
+          </div>
+        </article>
+      `;
+    }
+
+    function render(){
+      const q = (qEl.value || '').trim().toLowerCase();
+      const filtered = projects.filter(p => {
+        const blob = [p.title, p.tagline, p.category, p.impact, p.stack.join(' '), p.highlights.join(' ')].join(' ').toLowerCase();
+        const matchesQ = !q || blob.includes(q);
+        const matchesCat = activeCat === 'All' || p.category === activeCat;
+        return matchesQ && matchesCat;
+      });
+
+      listEl.innerHTML = filtered.length
+        ? filtered.map(cardHTML).join('')
+        : `<div class="card" style="padding:18px; background:rgba(36,51,43,.45); color:var(--muted);">No projects match your search.</div>`;
+    }
+
+    qEl.addEventListener('input', render);
+
+    // Helpers
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll('&','&amp;')
+        .replaceAll('<','&lt;')
+        .replaceAll('>','&gt;')
+        .replaceAll('"','&quot;')
+        .replaceAll("'",'&#39;');
+    }
+
+    document.getElementById('year').textContent = new Date().getFullYear();
+    render();
+  </script>
+</body>
+</html>
+
+
