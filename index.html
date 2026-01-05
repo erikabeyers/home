@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>E. Beyers · Environmental Data Engineer</title>
+  <title>Erika Beyers · Environmental Data Engineer</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -203,10 +203,10 @@
 <body>
   <header class="nav">
     <div class="wrap nav-inner">
-      <a class="brand" href="#top" aria-label="E. Beyers home">
+      <a class="brand" href="#top" aria-label="Erika Beyers home">
         <div class="logo" aria-hidden="true">🍃</div>
         <div>
-          <div class="brand-name">E. Beyers</div>
+          <div class="brand-name">Erika Beyers</div>
           <div class="brand-sub">Environmental data engineer</div>
         </div>
       </a>
@@ -247,7 +247,6 @@
           </div>
 
           <div class="badge-grid" aria-label="Highlights">
-            <div class="badge">✓ Production-grade tooling</div>
             <div class="badge">✓ Security & data governance</div>
             <div class="badge">✓ Decision-ready analytics</div>
             <div class="badge">✓ Climate-first outcomes</div>
@@ -259,7 +258,7 @@
             <div>
               <div style="font-weight:500; letter-spacing:.04em;">Currently building</div>
               <div style="margin-top:6px; color:var(--muted2); font-size:13px; line-height:1.5;">
-                A whole-life carbon calculator mid sized sollar installations to provide high-level early stage estimations.
+                A whole-life carbon calculator for mid-sized solar installations to provide early stage estimations.
               </div>
             </div>
             <div class="p-icon" aria-hidden="true">🌍</div>
@@ -292,8 +291,8 @@
           </div>
 
           <div style="margin-top:12px; display:grid; grid-template-columns: 1fr 1fr; gap:10px;">
-            <a class="btn" href="#">GitHub</a>
-            <a class="btn" href="#">LinkedIn</a>
+            <a class="btn" href="https://github.com/erikabeyers">GitHub</a>
+            <a class="btn" href="https://www.linkedin.com/in/erika-beyers/">LinkedIn</a>
           </div>
         </aside>
       </div>
@@ -382,24 +381,33 @@
               </div>
 
               <div style="margin-top:12px; display:flex; flex-wrap:wrap; gap:10px;">
-                <a class="btn btn-primary" href="#">Download CV</a>
-                <a class="btn" href="#">Message on LinkedIn</a>
+                <a class="btn" href="https://www.linkedin.com/in/erika-beyers/">Message on LinkedIn</a>
               </div>
             </div>
 
-            <form class="card-soft" style="padding:18px; margin-top:14px;" onsubmit="return false;">
+            <form
+                class="card-soft"
+                style="padding:18px; margin-top:14px;"
+                action="https://formspree.io/f/xykzveee"
+                method="POST"
+                              >
               <div style="font-weight:500; letter-spacing:.03em;">Quick brief</div>
-              <div style="margin-top:6px; color:var(--muted2); font-size:12px;">(Demo form — wire it to your backend or Formspree.)</div>
+                <label for="name">Name</label>
+                <input id="name" name="name" placeholder="Jane Doe" required />
 
-              <label for="name">Name</label>
-              <input id="name" placeholder="Jane Doe" />
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="jane@company.com" required />
 
-              <label for="email">Email</label>
-              <input id="email" type="email" placeholder="jane@company.com" />
-
-              <label for="brief">What are you building?</label>
-              <textarea id="brief" rows="4" placeholder="Emissions data ingestion + validation for 50 suppliers…"></textarea>
-
+                <label for="brief">What are you building?</label>
+                <textarea
+                    id="brief"
+                    name="message"
+                    rows="4"
+                    placeholder="Emissions data ingestion + validation for 50 suppliers…"
+                    required
+                ></textarea>
+              <div style="font-weight:500; letter-spacing:.03em;">Quick brief</div>
+              <input type="hidden" name="_subject" value="New portfolio enquiry from erikabeyers.com" />
               <button class="btn btn-primary" style="width:100%; margin-top:14px;" type="submit">Send brief →</button>
             </form>
           </div>
@@ -413,9 +421,9 @@
     <div class="wrap foot">
       <div>© <span id="year"></span> E. Beyers · Environmental data engineer</div>
       <div style="display:flex; gap:14px; flex-wrap:wrap;">
-        <a href="#">GitHub</a>
-        <a href="#">LinkedIn</a>
-        <a href="#">Email</a>
+        <a href="https://github.com/erikabeyers">GitHub</a>
+        <a href="https://www.linkedin.com/in/erika-beyers/">LinkedIn</a>
+        <a href="erika.beyers@gmail.com">Email</a>
       </div>
     </div>
   </footer>
