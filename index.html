@@ -433,19 +433,19 @@
     // Data (edit these with your real projects)
     const projects = [
       {
-        id: 'carbon-ledger',
-        title: 'Carbon Ledger',
-        tagline: 'Audit-ready emissions accounting for complex operations',
-        category: 'Carbon Accounting',
-        impact: 'Reduced reporting time by 65% and improved data traceability.',
-        stack: ['Python', 'FastAPI', 'PostgreSQL', 'Pydantic', 'Docker'],
+        id: 'supplier-selection',
+        title: 'Sustainable Supplier Selection',
+        tagline: 'A multi-criteria based model using cost and sustainability metrics to select suppliers',
+        category: 'Corporate Sustainability',
+        impact: 'Provided data-informed decisions to an automobile manufacturer to select best case suppliers under a range of scenarios',
+        stack: ['Python', 'Pyomo', 'Pandas'],
         highlights: [
-          'GHG Protocol-aligned activity data models',
-          'Uncertainty propagation + audit trail',
-          'Role-based access + exports to Excel/Power BI'
+           'Enabled low-carbon supplier selection without cost blind spots',
+          'Quantified trade-offs between price, emissions, and supply risk',
+          'Built a repeatable, auditable decision model for procurement teams'
         ],
-        links: { caseStudy:'#', demo:'#', repo:'#' },
-        icon: '🧾'
+        links: { details:'#'},
+        icon: '🤝'
       },
       {
         id: 'bess-scheduler',
@@ -459,7 +459,7 @@
           'Scenario engine + sensitivity analysis',
           'Interactive charts for ops and finance'
         ],
-        links: { caseStudy:'#', demo:'#', repo:'#' },
+        links: { details:'#'},
         icon: '⚡'
       },
       {
@@ -474,7 +474,7 @@
           'Facility condition assessment & sustainability tracking',
           'Custom report generation* and data export options'
         ],
-        links: { caseStudy:'#', demo:'#', repo:'#' },
+        links: { details:'#' },
         icon: '🗺️'
       },
       {
@@ -489,7 +489,7 @@
           'Quality rules + anomaly alerts',
           'Partner integrations + webhooks'
         ],
-        links: { caseStudy:'#', demo:'#', repo:'#' },
+        links: { details:'#' },
         icon: '🔌'
       }
     ];
@@ -546,7 +546,7 @@
           <div class="stack">${stack}</div>
 
           <div class="links">
-            <a class="btn btn-primary" href="${p.links.caseStudy}">Case study →</a>
+            <a class="btn btn-primary" href="${p.links.details}">Details →</a>
             <a class="btn" href="${p.links.demo}">Live demo</a>
             <a class="btn" href="${p.links.repo}">Repo</a>
           </div>
