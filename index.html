@@ -497,40 +497,50 @@
     const qEl = document.getElementById('q');
     const listEl = document.getElementById('projects');
 
-    function cardHTML(p){
-      const stack = p.stack.map(s => `<span class="pill">${escapeHtml(s)}</span>`).join('');
-      const hls = p.highlights.map(h => `
-        <li><span class="dot"></span><span>${escapeHtml(h)}</span></li>
-      `).join('');
-      return `
-        <article class="card p-card" data-id="${p.id}">
-          <div class="p-top">
-            <div>
-              <div class="p-left">
-                <div class="p-icon" aria-hidden="true">${p.icon}</div>
-                <div>
-                  <div class="p-title">${escapeHtml(p.title)}</div>
-                  <div class="p-cat">${escapeHtml(p.category)}</div>
-                </div>
+    <script>
+  function cardHTML(p){
+    const stack = p.stack.map(s => `<span class="pill">${escapeHtml(s)}</span>`).join('');
+    const hls = p.highlights.map(h => `
+      <li><span class="dot"></span><span>${escapeHtml(h)}</span></li>
+    `).join('');
+
+    const linksOrNote = p.note
+      ? `<div style="font-size:13px; color:var(--muted); line-height:1.6;">
+           ${escapeHtml(p.note)}
+         </div>`
+      : `<a class="btn btn-primary" href="${p.links.details}" target="_blank" rel="noopener">Details →</a>`;
+
+    return `
+      <article class="card p-card" data-id="${p.id}">
+        <div class="p-top">
+          <div>
+            <div class="p-left">
+              <div class="p-icon" aria-hidden="true">${p.icon}</div>
+              <div>
+                <div class="p-title">${escapeHtml(p.title)}</div>
+                <div class="p-cat">${escapeHtml(p.category)}</div>
               </div>
-              <div class="p-tagline">${escapeHtml(p.tagline)}</div>
             </div>
-            <div class="impact">${escapeHtml(p.impact)}</div>
+            <div class="p-tagline">${escapeHtml(p.tagline)}</div>
           </div>
+          <div class="impact">${escapeHtml(p.impact)}</div>
+        </div>
 
-          <div class="hl">
-            <h4>Highlights</h4>
-            <ul>${hls}</ul>
-          </div>
+        <div class="hl">
+          <h4>Highlights</h4>
+          <ul>${hls}</ul>
+        </div>
 
-          <div class="stack">${stack}</div>
+        <div class="stack">${stack}</div>
 
-          <div class="links">
-            <a class="btn btn-primary" href="${p.links.details}">Details →</a>
-          </div>
-        </article>
-      `;
-    }
+        <div class="links">
+          ${linksOrNote}
+        </div>
+      </article>
+    `;
+  }
+</script>
+
 
     function render(){
       const q = (qEl.value || '').trim().toLowerCase();
