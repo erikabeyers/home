@@ -319,18 +319,6 @@
 
         <div class="grid" id="projects" aria-live="polite"></div>
 
-        <div class="card" style="margin-top:16px; padding:18px; background:rgba(36,51,43,.45);">
-          <div style="display:flex; flex-direction:column; gap:10px;">
-            <div>
-              <div style="font-weight:500; letter-spacing:.03em;">Want deeper technical detail?</div>
-              <div style="margin-top:6px; color:var(--muted);">Ask for architecture diagrams, data models, or an end-to-end case study template.</div>
-            </div>
-            <div>
-              <a class="btn btn-primary" href="#contact">Start a project →</a>
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
 
     <!-- SERVICES -->
@@ -406,7 +394,6 @@
                     placeholder="Emissions data ingestion + validation for 50 suppliers…"
                     required
                 ></textarea>
-              <div style="font-weight:500; letter-spacing:.03em;">Quick brief</div>
               <input type="hidden" name="_subject" value="New portfolio enquiry from erikabeyers.com" />
               <button class="btn btn-primary" style="width:100%; margin-top:14px;" type="submit">Send brief →</button>
             </form>
@@ -419,7 +406,7 @@
 
   <footer>
     <div class="wrap foot">
-      <div>© <span id="year"></span> E. Beyers · Environmental data engineer</div>
+      <div>© <span id="year"></span> Erika Beyers · Environmental data engineer</div>
       <div style="display:flex; gap:14px; flex-wrap:wrap;">
         <a href="https://github.com/erikabeyers">GitHub</a>
         <a href="https://www.linkedin.com/in/erika-beyers/">LinkedIn</a>
@@ -452,12 +439,12 @@
           'Quantified trade-offs between price, emissions, and supply risk',
           'Built a repeatable, auditable decision model for procurement teams'
         ],
-        links: { details:'#'},
+        links: { details:'https://github.com/erikabeyers/grad-thesis'},
         icon: '🤝'
       },
       {
         id: 'solar-wholelifecarbon',
-        title: 'Solar Whole Life Carbon Tool',
+        title: 'Solar Whole Life Carbon Tool: In Progress',
         tagline: 'Early-stage whole life carbon assessment for solar PV systems',
         category: 'Whole Life Carbon & LCA',
         impact: 'Enabled rapid pre-design carbon benchmarking to support low-carbon option screening and planning decisions',
@@ -470,21 +457,21 @@
         links: { details: '#' },
       icon: '🌞'
       },
-      {
-        id: 'carbon-dashboard',
-        title: 'Carbon Emissions Dashboards',
-        tagline: 'Location-based physical energy usage insights for assets',
-        category: 'Climate Data',
-        impact: 'Enabled comparable screening across 25+ sites across Europe.',
-        stack: ['DAX', 'Microsoft Excel', 'Power BI','Power Query'],
+   {
+      id: 'carbon-dashboard',
+      title: 'Carbon Emissions Dashboards',
+      tagline: 'Location-based physical energy usage insights for assets',
+      category: 'Climate Data',
+      impact: 'Enabled comparable screening across 25+ sites across Europe.',
+      stack: ['DAX', 'Microsoft Excel', 'Power BI', 'Power Query'],
         highlights: [
-          'Interactive maps linking details of site visit findings',
-          'Facility condition assessment & sustainability tracking',
-          'Custom report generation* and data export options'
-        ],
-        links: { details:'#' },
-        icon: '🗺️'
-      },
+            'Interactive maps linking details of site visit findings',
+            'Facility condition assessment & sustainability tracking',
+            'Custom report generation and data export options'
+                      ],
+          note: 'Due to the sensitive nature of client data, the underlying dashboards and code are not publicly available. I’m very happy to talk through the approach, design decisions, and a demo on request.',
+          icon: '🗺️'
+},
     ];
 
     // Build categories
