@@ -403,95 +403,101 @@
       </div>
     </div>
   </footer>
-
-  <script>
-    // Smooth jump for nav buttons
-    document.querySelectorAll('[data-jump]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const id = btn.getAttribute('data-jump');
-        const el = document.getElementById(id);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      });
+<script>
+  // Smooth jump for nav buttons
+  document.querySelectorAll('[data-jump]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-jump');
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
+  });
 
-    // Data
-    const projects = [
-      {
-        id: 'supplier-selection',
-        title: 'Sustainable Supplier Selection',
-        tagline: 'A multi-criteria based model using cost and sustainability metrics to select suppliers',
-        category: 'Corporate Sustainability',
-        impact: 'Provided data-backed decisions to an OEM manufacturer selecting best suppliers via cost and sustainability scores',
-        stack: ['Python', 'Pyomo', 'Pandas'],
-        highlights: [
-           'Enabled low-carbon supplier selection without cost blind spots',
-          'Quantified trade-offs between price, emissions, and supply risk',
-          'Built a repeatable, auditable decision model for procurement teams'
-        ],
-        links: { details:'https://github.com/erikabeyers/grad-thesis'},
-        icon: '🤝'
-      },
-      {
-        id: 'solar-wholelifecarbon',
-        title: 'Solar Whole Life Carbon Tool: In Progress',
-        tagline: 'Early-stage whole life carbon assessment for solar PV systems',
-        category: 'Whole Life Carbon & LCA',
-        impact: 'Enabled rapid pre-design carbon benchmarking to support low-carbon option screening and planning decisions',
-        stack: ['Python', 'pvlib', 'Pandas', 'PVGIS'],
-        highlights: [
-          'EN 15978 / RICS-aligned whole life carbon framework (A–C modules)',
-          'High-level embodied vs operational carbon trade-offs before design freeze',
-            'Location-specific generation modelling to estimate avoided emissions'
-                      ],
-        links: { details: '#' },
+  // ======================
+  // Project data
+  // ======================
+  const projects = [
+    {
+      id: 'supplier-selection',
+      title: 'Sustainable Supplier Selection',
+      tagline: 'A multi-criteria based model using cost and sustainability metrics to select suppliers',
+      category: 'Corporate Sustainability',
+      impact: 'Provided data-backed decisions to an OEM manufacturer selecting best suppliers via cost and sustainability scores',
+      stack: ['Python', 'Pyomo', 'Pandas'],
+      highlights: [
+        'Enabled low-carbon supplier selection without cost blind spots',
+        'Quantified trade-offs between price, emissions, and supply risk',
+        'Built a repeatable, auditable decision model for procurement teams'
+      ],
+      links: { details: 'https://github.com/erikabeyers/grad-thesis' },
+      icon: '🤝'
+    },
+    {
+      id: 'solar-wholelifecarbon',
+      title: 'Solar Whole Life Carbon Tool: In Progress',
+      tagline: 'Early-stage whole life carbon assessment for solar PV systems',
+      category: 'Whole Life Carbon & LCA',
+      impact: 'Enabled rapid pre-design carbon benchmarking to support low-carbon option screening and planning decisions',
+      stack: ['Python', 'pvlib', 'Pandas', 'PVGIS'],
+      highlights: [
+        'EN 15978 / RICS-aligned whole life carbon framework (A–C modules)',
+        'High-level embodied vs operational carbon trade-offs before design freeze',
+        'Location-specific generation modelling to estimate avoided emissions'
+      ],
+      links: { details: '#' },
       icon: '🌞'
-      },
-   {
+    },
+    {
       id: 'carbon-dashboard',
       title: 'Carbon Emissions Dashboards',
       tagline: 'Location-based physical energy usage insights for assets',
       category: 'Climate Data',
       impact: 'Enabled comparable screening across 25+ sites across Europe.',
       stack: ['DAX', 'Microsoft Excel', 'Power BI', 'Power Query'],
-        highlights: [
-            'Interactive maps linking details of site visit findings',
-            'Facility condition assessment & sustainability tracking',
-            'Custom report generation and data export options'
-                      ],
-          note: 'Due to the sensitive nature of client data, the underlying dashboards and code are not publicly available. I’m very happy to talk through the approach, design decisions, and a demo on request.',
-          icon: '🗺️'
-},
-    ];
+      highlights: [
+        'Interactive maps linking details of site visit findings',
+        'Facility condition assessment & sustainability tracking',
+        'Custom report generation and data export options'
+      ],
+      note: 'Due to the sensitive nature of client data, the underlying dashboards and code are not publicly available. I’m very happy to talk through the approach, design decisions, and a demo on request.',
+      icon: '🗺️'
+    }
+  ];
 
-    // Build categories
-    const catsEl = document.getElementById('cats');
-    const categories = ['All', ...Array.from(new Set(projects.map(p => p.category)))];
-    let activeCat = 'All';
+  // ======================
+  // Category filters
+  // ======================
+  const catsEl = document.getElementById('cats');
+  const categories = ['All', ...new Set(projects.map(p => p.category))];
+  let activeCat = 'All';
 
-    categories.forEach(cat => {
-      const b = document.createElement('button');
-      b.className = 'chip' + (cat === activeCat ? ' active' : '');
-      b.type = 'button';
-      b.textContent = cat;
-      b.addEventListener('click', () => {
-        activeCat = cat;
-        document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
-        b.classList.add('active');
-        render();
-      });
-      catsEl.appendChild(b);
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'chip' + (cat === activeCat ? ' active' : '');
+    btn.type = 'button';
+    btn.textContent = cat;
+
+    btn.addEventListener('click', () => {
+      activeCat = cat;
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      render();
     });
 
-    // Render
-    const qEl = document.getElementById('q');
-    const listEl = document.getElementById('projects');
+    catsEl.appendChild(btn);
+  });
 
-    <script>
-  function cardHTML(p){
+  // ======================
+  // Rendering
+  // ======================
+  const qEl = document.getElementById('q');
+  const listEl = document.getElementById('projects');
+
+  function cardHTML(p) {
     const stack = p.stack.map(s => `<span class="pill">${escapeHtml(s)}</span>`).join('');
-    const hls = p.highlights.map(h => `
-      <li><span class="dot"></span><span>${escapeHtml(h)}</span></li>
-    `).join('');
+    const highlights = p.highlights.map(h =>
+      `<li><span class="dot"></span><span>${escapeHtml(h)}</span></li>`
+    ).join('');
 
     const linksOrNote = p.note
       ? `<div style="font-size:13px; color:var(--muted); line-height:1.6;">
@@ -500,11 +506,11 @@
       : `<a class="btn btn-primary" href="${p.links.details}" target="_blank" rel="noopener">Details →</a>`;
 
     return `
-      <article class="card p-card" data-id="${p.id}">
+      <article class="card p-card">
         <div class="p-top">
           <div>
             <div class="p-left">
-              <div class="p-icon" aria-hidden="true">${p.icon}</div>
+              <div class="p-icon">${p.icon}</div>
               <div>
                 <div class="p-title">${escapeHtml(p.title)}</div>
                 <div class="p-cat">${escapeHtml(p.category)}</div>
@@ -517,7 +523,7 @@
 
         <div class="hl">
           <h4>Highlights</h4>
-          <ul>${hls}</ul>
+          <ul>${highlights}</ul>
         </div>
 
         <div class="stack">${stack}</div>
@@ -528,38 +534,49 @@
       </article>
     `;
   }
+
+  function render() {
+    const q = (qEl.value || '').toLowerCase();
+
+    const filtered = projects.filter(p => {
+      const text = [
+        p.title,
+        p.tagline,
+        p.category,
+        p.impact,
+        p.stack.join(' '),
+        p.highlights.join(' ')
+      ].join(' ').toLowerCase();
+
+      return (activeCat === 'All' || p.category === activeCat) &&
+             (!q || text.includes(q));
+    });
+
+    listEl.innerHTML = filtered.length
+      ? filtered.map(cardHTML).join('')
+      : `<div class="card" style="padding:18px; background:rgba(36,51,43,.45); color:var(--muted);">
+           No projects match your search.
+         </div>`;
+  }
+
+  qEl.addEventListener('input', render);
+
+  // ======================
+  // Utilities
+  // ======================
+  function escapeHtml(str) {
+    return String(str)
+      .replaceAll('&', '&amp;')
+      .replaceAll('<', '&lt;')
+      .replaceAll('>', '&gt;')
+      .replaceAll('"', '&quot;')
+      .replaceAll("'", '&#39;');
+  }
+
+  document.getElementById('year').textContent = new Date().getFullYear();
+  render();
 </script>
 
-
-    function render(){
-      const q = (qEl.value || '').trim().toLowerCase();
-      const filtered = projects.filter(p => {
-        const blob = [p.title, p.tagline, p.category, p.impact, p.stack.join(' '), p.highlights.join(' ')].join(' ').toLowerCase();
-        const matchesQ = !q || blob.includes(q);
-        const matchesCat = activeCat === 'All' || p.category === activeCat;
-        return matchesQ && matchesCat;
-      });
-
-      listEl.innerHTML = filtered.length
-        ? filtered.map(cardHTML).join('')
-        : `<div class="card" style="padding:18px; background:rgba(36,51,43,.45); color:var(--muted);">No projects match your search.</div>`;
-    }
-
-    qEl.addEventListener('input', render);
-
-    // Helpers
-    function escapeHtml(str){
-      return String(str)
-        .replaceAll('&','&amp;')
-        .replaceAll('<','&lt;')
-        .replaceAll('>','&gt;')
-        .replaceAll('"','&quot;')
-        .replaceAll("'",'&#39;');
-    }
-
-    document.getElementById('year').textContent = new Date().getFullYear();
-    render();
-  </script>
 </body>
 </html>
 
