@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>E. Beyers · Environmental Software Tools</title>
+  <title>E. Beyers · Environmental Data Engineer</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -207,12 +207,12 @@
         <div class="logo" aria-hidden="true">🍃</div>
         <div>
           <div class="brand-name">E. Beyers</div>
-          <div class="brand-sub">Environmental software tools</div>
+          <div class="brand-sub">Environmental data engineer</div>
         </div>
       </a>
 
       <nav class="nav-links" aria-label="Primary">
-        <button data-jump="work">Work</button>
+        <button data-jump="work">Portfolio</button>
         <button data-jump="services">Services</button>
         <button data-jump="contact">Contact</button>
         <a class="btn btn-primary" href="#contact">Let’s build →</a>
@@ -304,7 +304,7 @@
       <div class="wrap">
         <div class="section-head">
           <div class="eyebrow">✦ Selected work</div>
-          <div class="h2">Projects that balance scientific rigor with usable design</div>
+          <div class="h2">Projects that balance data analysis with usable design</div>
           <p class="sub">Each project is built around a decision: reduce carbon, manage risk, or operate assets more efficiently — with data you can trust.</p>
         </div>
 
@@ -411,7 +411,7 @@
 
   <footer>
     <div class="wrap foot">
-      <div>© <span id="year"></span> E. Beyers · Environmental software tools</div>
+      <div>© <span id="year"></span> E. Beyers · Environmental data engineer</div>
       <div style="display:flex; gap:14px; flex-wrap:wrap;">
         <a href="#">GitHub</a>
         <a href="#">LinkedIn</a>
@@ -430,14 +430,14 @@
       });
     });
 
-    // Data (edit these with your real projects)
+    // Data
     const projects = [
       {
         id: 'supplier-selection',
         title: 'Sustainable Supplier Selection',
         tagline: 'A multi-criteria based model using cost and sustainability metrics to select suppliers',
         category: 'Corporate Sustainability',
-        impact: 'Provided data-informed decisions to an automobile manufacturer to select best case suppliers under a range of scenarios',
+        impact: 'Provided data-backed decisions to an OEM manufacturer selecting best suppliers via cost and sustainability scores',
         stack: ['Python', 'Pyomo', 'Pandas'],
         highlights: [
            'Enabled low-carbon supplier selection without cost blind spots',
@@ -448,27 +448,27 @@
         icon: '🤝'
       },
       {
-        id: 'bess-scheduler',
-        title: 'BESS Dispatch Planner',
-        tagline: 'Constraint-aware scheduling for storage and renewables',
-        category: 'Optimisation',
-        impact: 'Improved capture price by 8–12% in simulated markets.',
-        stack: ['TypeScript', 'Node', 'OR-Tools', 'TimescaleDB'],
+        id: 'solar-wholelifecarbon',
+        title: 'Solar Whole Life Carbon Tool',
+        tagline: 'Early-stage whole life carbon assessment for solar PV systems',
+        category: 'Whole Life Carbon & LCA',
+        impact: 'Enabled rapid pre-design carbon benchmarking to support low-carbon option screening and planning decisions',
+        stack: ['Python', 'pvlib', 'Pandas', 'PVGIS'],
         highlights: [
-          'Multi-objective optimisation (cost, carbon, cycling)',
-          'Scenario engine + sensitivity analysis',
-          'Interactive charts for ops and finance'
-        ],
-        links: { details:'#'},
-        icon: '⚡'
+          'EN 15978 / RICS-aligned whole life carbon framework (A–C modules)',
+          'High-level embodied vs operational carbon trade-offs before design freeze',
+            'Location-specific generation modelling to estimate avoided emissions'
+                      ],
+        links: { details: '#' },
+      icon: '🌞'
       },
       {
         id: 'carbon-dashboard',
-        title: 'Carbon Emissions Dashboard',
+        title: 'Carbon Emissions Dashboards',
         tagline: 'Location-based physical energy usage insights for assets',
         category: 'Climate Data',
         impact: 'Enabled comparable screening across 25+ sites across Europe.',
-        stack: ['Web', 'Microsoft Excel', 'Power BI'],
+        stack: ['DAX', 'Microsoft Excel', 'Power BI','Power Query'],
         highlights: [
           'Interactive maps linking details of site visit findings',
           'Facility condition assessment & sustainability tracking',
@@ -477,21 +477,6 @@
         links: { details:'#' },
         icon: '🗺️'
       },
-      {
-        id: 'esg-api',
-        title: 'ESG Data API',
-        tagline: 'A unified interface for utilities, suppliers, and reports',
-        category: 'Data Engineering',
-        impact: 'Cut supplier data onboarding from weeks to days.',
-        stack: ['Go', 'gRPC', 'Kafka', 'BigQuery'],
-        highlights: [
-          'Schema registry + versioning',
-          'Quality rules + anomaly alerts',
-          'Partner integrations + webhooks'
-        ],
-        links: { details:'#' },
-        icon: '🔌'
-      }
     ];
 
     // Build categories
