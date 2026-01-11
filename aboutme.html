@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Me · Erika Beyers</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --bg: #1F2A24;
+  --panel: #24332B;
+  --panel2: #1A241F;
+  --sand: #E6D8C3;
+  --clay: #D6C6AE;
+  --linen: #F5F1EB;
+  --muted: rgba(245,241,235,.72);
+  --muted2: rgba(245,241,235,.55);
+  --stroke: rgba(214,198,174,.40);
+  --stroke2: rgba(214,198,174,.22);
+  --shadow: 0 10px 30px rgba(0,0,0,.22);
+  --r-xl: 22px;
+  --r-2xl: 28px;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: "DM Sans", system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--linen);
+  letter-spacing: .01em;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.wrap {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* NAV */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid var(--stroke2);
+  background: rgba(31,42,36,.70);
+  backdrop-filter: blur(10px);
+}
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 0;
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.logo {
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  border: 1px solid var(--stroke2);
+  background: rgba(36,51,43,.55);
+  font-size: 18px;
+  color: inherit;
+}
+.brand-name {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .04em;
+}
+.brand-sub {
+  font-size: 12px;
+  color: var(--muted2);
+  margin-top: 2px;
+}
+
+.nav-links {
+  display: none;
+  gap: 6px;
+  align-items: center;
+}
+.nav-links a, .nav-links button {
+  font: inherit;
+  cursor: pointer;
+  border: 0;
+  background: transparent;
+  padding: 9px 12px;
+  border-radius: 999px;
+  color:var(--muted);
+}
+.nav-links a:hover,
+.nav-links button:hover {
+  background: rgba(36,51,43,.55);
+  color: var(--linen);
+}
+@media (min-width: 720px) {
+  .nav-links { display: flex; }
+}
+@media (max-width: 719px) {
+  .nav-cta.desktop { display: none; }
+}
+
+/* HEADER SECTION */
+.about-header {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 56px;
+  margin-bottom: 32px;
+}
+.about-header img {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 2px solid var(--stroke2);
+  box-shadow: var(--shadow);
+}
+.about-header h1 {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 500;
+  color: var(--linen);
+}
+
+/* TEXT */
+.about-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-top: 16px;
+}
+
+/* IMAGE GRID */
+.image-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+.image-grid img {
+  flex: 0 1 calc(50% - 8px);
+  max-width: 500px;
+  width: 100%;
+  border-radius: 18px;
+  border: 1px solid var(--stroke2);
+  box-shadow: var(--shadow);
+  display: block;
+  object-fit: cover;
+}
+
+/* RESPONSIVE */
+@media (max-width: 720px) {
+  .image-grid img {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+}
+</style>
+
+</head>
+
+<body>
+  <header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="index.html" aria-label="Erika Beyers home">
+      <div class="logo" aria-hidden="true">🍃</div>
+      <div>
+        <div class="brand-name">Erika Beyers</div>
+        <div class="brand-sub">Environmental data engineer</div>
+      </div>
+    </a>
+
+    <nav class="nav-links" aria-label="Primary">
+      <a href="index.html#work">Portfolio</a>
+      <a href="index.html#services">Services</a>
+      <a href="aboutme.html">About</a>
+      <a class="btn btn-primary" href="index.html#contact">Let’s build →</a>
+    </nav>
+  </div>
+    </header>
+
+  <main class="wrap">
+
+  <div class="about-header">
+      <img src="resources/headshot.jpg" alt="This is me!" />
+       <h1>About Me</h1>
+    </div>
+
+    <div class="about-text">
+      <p>I grew up in central Johannesburg, and was raised by an Irish mother and a Belgian father. Both of my parents moved to South Africa over a decade before I was born and built their own businesses respectively, in the melting pot of change which was Johannesburg at the time.</p>
+      <p>From a young age, I was always passionate about the environment and the impact of human activity on it. We also experienced electricity blackouts regularly, which only amplified my understanding of how important energy access is for development and for quality of life.</p>
+      <p>After moving to Ireland for University and completing my degree in Mechanical Engineering, I refocused my career path towards renewable energy engineering, where I could combine my technical background with my passion for environmental sustainability.</p>
+      <p>I quickly realised my passion lay with digging into data to uncover insights and solutions for environmental challenges. Today, I am shifting my focus to using data science and engineering principles to drive environmental impact and sustainability.</p>
+      <p>I live and work out of Edinburgh, which allows me to go for runs and hikes in nature from my doorstep when I'm not working. I enjoy reading, singing, climbing rocks, and exploring all that nature has to offer in my free time.</p>
+    </div>
+
+  
+  <div class="image-grid" style="margin-top: 40px;">
+    <img src="resources/IMG_1345.PNG" alt="My beautiful current hometown, Edinburgh" style="width: 48%; max-width: 500px; border-radius:18px;" />
+    <img src="resources/IMG_1343.PNG" alt="Spot the engineer - rock climbing in Thailand" style="width: 48%; max-width: 500px; border-radius:18px;" />
+  </div>
+
+  <footer class="wrap" style="padding: 20px 0; color: var(--muted2); border-top: 1px solid var(--stroke2); margin-top: 60px;">
+    <div>© <span id="year"></span> Erika Beyers · Environmental data engineer</div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
